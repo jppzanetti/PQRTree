@@ -12,8 +12,8 @@ class PQRNode extends Node {
     private PQRType type;
     private boolean deleted;
 
-    private LinkedList<Node> grayChildren;
-    private LinkedList<Node> blackChildren;
+    private final LinkedList<Node> grayChildren;
+    private final LinkedList<Node> blackChildren;
 
     PQRNode(PQRType type) {
         super();

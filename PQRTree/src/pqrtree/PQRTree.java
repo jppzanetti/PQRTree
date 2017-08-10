@@ -6,8 +6,13 @@ public class PQRTree {
 
     private PQRNode root;
     private Leaf[] leaf;
-    private LinkedList<PQRNode> visitedNodes;
+    private final LinkedList<PQRNode> visitedNodes;
 
+    /**
+     * Builds and returns an universal tree with n leaves.
+     * 
+     * @param n The number of leaves in the tree. 
+     */
     public PQRTree(int n) {
         super();
 

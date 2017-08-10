@@ -2,7 +2,7 @@ package pqrtree;
 
 class Leaf extends Node {
 
-    private int value;
+    private final int value;
 
     Leaf(int i) {
         super();
