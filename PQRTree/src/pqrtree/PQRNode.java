@@ -26,8 +26,8 @@ public class PQRNode extends Node {
         this.type = type;
         this.deleted = false;
 
-        this.grayChildren = new LinkedList<Node>();
-        this.blackChildren = new LinkedList<Node>();
+        this.grayChildren = new LinkedList<>();
+        this.blackChildren = new LinkedList<>();
     }
 
     public PQRType getType() {
@@ -216,7 +216,7 @@ public class PQRNode extends Node {
     private void reverse() {
         Node tmp = this.firstChild;
         this.firstChild = this.lastChild;
-        this.firstChild = tmp;
+        this.lastChild = tmp;
     }
 
     /**

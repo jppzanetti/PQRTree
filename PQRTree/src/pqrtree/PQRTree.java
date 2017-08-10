@@ -30,7 +30,7 @@ public class PQRTree {
             this.root.insertEnd(this.leaf[i]);
         }
 
-        this.visitedNodes = new LinkedList<PQRNode>();
+        this.visitedNodes = new LinkedList<>();
     }
 
     public void reduce(int[] c) {
@@ -45,7 +45,7 @@ public class PQRTree {
     }
 
     public PQRNode bubble(int[] c) {
-        LinkedList<Node> queue = new LinkedList<Node>();
+        LinkedList<Node> queue = new LinkedList<>();
         int offTheTop = 0;
 
         // First phase: count the pertinent children of each node
