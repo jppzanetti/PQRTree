@@ -10,6 +10,7 @@ public class Leaf extends Node {
         this.value = i;
     }
 
+    @Override
     public String toString() {
         return Integer.toString(value);
     }
