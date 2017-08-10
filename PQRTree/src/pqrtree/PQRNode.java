@@ -219,10 +219,10 @@ class PQRNode extends Node {
         this.lastChild = tmp;
     }
 
-    /**
-     * **********************************
+    /*
+     ************************************
      * Operations to repair gray nodes. *
-	 ***********************************
+     ************************************
      */
     void joinBlackChildren() {
         if ((this.blackChildren.size() > 1) && (this.blackChildren.size() < this.getChildCount())) {
@@ -480,10 +480,11 @@ class PQRNode extends Node {
         }
     }
 
-    /**
-     * ************************************
-     * Operations to adjust the LCA * after repairing all gray children. *
-	 *************************************
+    /*
+     **************************************
+     * Operations to adjust the LCA       *
+     * after repairing all gray children. *
+     **************************************
      */
     void adjust() {
         switch (this.type) {
@@ -524,11 +525,12 @@ class PQRNode extends Node {
         this.blackChildren.clear();
     }
 
-    /**
-     * ************
+    /*
+     **************
      * Utilities. *
-	 *************
+     **************
      */
+    
     @Override
     public String toString() {
         String s = "";
