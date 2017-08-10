@@ -1,10 +1,10 @@
 package pqrtree;
 
-public class Leaf extends Node {
+class Leaf extends Node {
 
     private int value;
 
-    public Leaf(int i) {
+    Leaf(int i) {
         super();
 
         this.value = i;
@@ -16,7 +16,7 @@ public class Leaf extends Node {
     }
 
     @Override
-    public boolean areAllChildrenBlack() {
+    boolean areAllChildrenBlack() {
         return true;
     }
 }

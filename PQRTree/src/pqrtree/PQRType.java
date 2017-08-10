@@ -1,5 +1,5 @@
 package pqrtree;
 
-public enum PQRType {
+enum PQRType {
     P, Q, R;
 }

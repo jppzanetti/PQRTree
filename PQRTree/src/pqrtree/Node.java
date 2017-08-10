@@ -1,6 +1,6 @@
 package pqrtree;
 
-public abstract class Node {
+abstract class Node {
 
     private Color color;
 
@@ -14,7 +14,7 @@ public abstract class Node {
     private int pertinentChildCount;
     private int pertinentLeafCount;
 
-    public Node() {
+    Node() {
         super();
 
         this.color = Color.WHITE;
@@ -30,7 +30,7 @@ public abstract class Node {
         this.pertinentLeafCount = 0;
     }
 
-    public Color getColor() {
+    Color getColor() {
         return color;
     }
 
@@ -41,7 +41,7 @@ public abstract class Node {
         return this.representant;
     }
 
-    public PQRNode getParent() {
+    PQRNode getParent() {
         if (this.representant == this) {
             return parent;
         } else {
@@ -49,7 +49,7 @@ public abstract class Node {
         }
     }
 
-    public void setColor(Color color) {
+    void setColor(Color color) {
         this.color = color;
 
         if (color == Color.GRAY) {
@@ -60,7 +60,7 @@ public abstract class Node {
         }
     }
 
-    public void setParent(PQRNode parent) {
+    void setParent(PQRNode parent) {
         if (parent == null) {
             this.parent = null;
             this.representant = this;
@@ -76,48 +76,48 @@ public abstract class Node {
         }
     }
 
-    public void setRepresentant(Node v) {
+    void setRepresentant(Node v) {
         this.representant = v;
     }
 
-    public int getRank() {
+    int getRank() {
         return this.rank;
     }
 
-    public void incRank() {
+    void incRank() {
         this.rank += 1;
     }
 
-    public abstract boolean areAllChildrenBlack();
+    abstract boolean areAllChildrenBlack();
 
-    public void cleanUp() {
+    void cleanUp() {
         this.color = Color.WHITE;
         this.visited = false;
         this.pertinentChildCount = 0;
         this.pertinentLeafCount = 0;
     }
 
-    public boolean isVisited() {
+    boolean isVisited() {
         return this.visited;
     }
 
-    public void visit() {
+    void visit() {
         this.visited = true;
     }
 
-    public int getPertinentChildCount() {
+    int getPertinentChildCount() {
         return this.pertinentChildCount;
     }
 
-    public void setPertinentChildCount(int n) {
+    void setPertinentChildCount(int n) {
         this.pertinentChildCount = n;
     }
 
-    public int getPertinentLeafCount() {
+    int getPertinentLeafCount() {
         return this.pertinentLeafCount;
     }
 
-    public void setPertinentLeafCount(int n) {
+    void setPertinentLeafCount(int n) {
         this.pertinentLeafCount = n;
     }
 }

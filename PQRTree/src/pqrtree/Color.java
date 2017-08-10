@@ -1,5 +1,5 @@
 package pqrtree;
 
-public enum Color {
+enum Color {
     WHITE, GRAY, BLACK;
 }

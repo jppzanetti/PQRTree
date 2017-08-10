@@ -1,10 +1,6 @@
 package pqrtree;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.LinkedList;
-import java.util.Scanner;
 
 public class PQRTree {
 
@@ -44,7 +40,7 @@ public class PQRTree {
         this.uncolor(c);
     }
 
-    public PQRNode bubble(int[] c) {
+    private PQRNode bubble(int[] c) {
         LinkedList<Node> queue = new LinkedList<>();
         int offTheTop = 0;
 
@@ -99,7 +95,7 @@ public class PQRTree {
         return null;
     }
 
-    public PQRNode repairGray(PQRNode r) {
+    private PQRNode repairGray(PQRNode r) {
         PQRNode v = r.getGrayChild();
         PQRNode newLCA = r;
 
@@ -135,7 +131,7 @@ public class PQRTree {
         return newLCA;
     }
 
-    public void uncolor(int[] c) {
+    private void uncolor(int[] c) {
         for (int i : c) {
             this.leaf[i].cleanUp();
 
@@ -160,39 +156,5 @@ public class PQRTree {
     @Override
     public String toString() {
         return root.toString();
-    }
-
-    public static void main(String[] args) throws IOException {
-        Scanner scanner = new Scanner(System.in);
-        int tmpRestriction[] = null;
-
-        // Create initial universal tree
-        int elementNumber = scanner.nextInt();
-        PQRTree pqrtree = new PQRTree(elementNumber);
-        System.out.println(pqrtree.toString());
-
-        // Read restrictions until empty line
-        BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-        String line = in.readLine();
-        while (!line.isEmpty()) {
-            Scanner scanLine = new Scanner(line);
-            int restriction[] = null;
-            int i = 0;
-
-            tmpRestriction = new int[elementNumber];
-            while (scanLine.hasNextInt()) {
-                tmpRestriction[i++] = scanLine.nextInt();
-            }
-
-            restriction = new int[i];
-            for (int j = 0; j < i; j++) {
-                restriction[j] = tmpRestriction[j];
-            }
-
-            pqrtree.reduce(restriction);
-            System.out.println(pqrtree.toString());
-
-            line = in.readLine();
-        }
     }
 }

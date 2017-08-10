@@ -2,7 +2,7 @@ package pqrtree;
 
 import java.util.LinkedList;
 
-public class PQRNode extends Node {
+class PQRNode extends Node {
 
     private Node firstChild;
     private Node lastChild;
@@ -15,7 +15,7 @@ public class PQRNode extends Node {
     private LinkedList<Node> grayChildren;
     private LinkedList<Node> blackChildren;
 
-    public PQRNode(PQRType type) {
+    PQRNode(PQRType type) {
         super();
 
         this.firstChild = null;
@@ -30,47 +30,47 @@ public class PQRNode extends Node {
         this.blackChildren = new LinkedList<>();
     }
 
-    public PQRType getType() {
+    PQRType getType() {
         return type;
     }
 
-    public void setType(PQRType type) {
+    void setType(PQRType type) {
         this.type = type;
     }
 
-    public boolean isDeleted() {
+    boolean isDeleted() {
         return deleted;
     }
 
-    public int getChildCount() {
+    int getChildCount() {
         return this.childCount;
     }
 
-    public Node getRepresentativeChild() {
+    Node getRepresentativeChild() {
         return this.representativeChild;
     }
 
-    public void setRepresentativeChild(Node v) {
+    void setRepresentativeChild(Node v) {
         this.representativeChild = v;
     }
 
-    public void addGrayChild(Node node) {
+    void addGrayChild(Node node) {
         this.grayChildren.add(node);
     }
 
-    public void addBlackChild(Node node) {
+    void addBlackChild(Node node) {
         this.blackChildren.add(node);
     }
 
-    public PQRNode getGrayChild() {
+    PQRNode getGrayChild() {
         return (PQRNode) this.grayChildren.poll();
     }
 
-    public void insertChild(Node v) {
+    void insertChild(Node v) {
         this.insertEnd(v);
     }
 
-    public void insertBeginning(Node v) {
+    void insertBeginning(Node v) {
         v.setParent(this);
         v.sibling[1] = this.firstChild;
         this.childCount++;
@@ -100,7 +100,7 @@ public class PQRNode extends Node {
         }
     }
 
-    public void insertEnd(Node v) {
+    void insertEnd(Node v) {
         v.setParent(this);
         v.sibling[0] = this.lastChild;
         this.childCount++;
@@ -130,7 +130,7 @@ public class PQRNode extends Node {
         }
     }
 
-    public void insertBetween(Node v, Node i, Node j) {
+    void insertBetween(Node v, Node i, Node j) {
         v.sibling[0] = i;
         v.sibling[1] = j;
 
@@ -169,7 +169,7 @@ public class PQRNode extends Node {
     }
 
     // Doesn't remove v from colored lists
-    public void removeChild(Node v) {
+    void removeChild(Node v) {
         this.childCount--;
 
         Node v0 = v.sibling[0];
@@ -224,7 +224,7 @@ public class PQRNode extends Node {
      * Operations to repair gray nodes. *
 	 ***********************************
      */
-    public void joinBlackChildren() {
+    void joinBlackChildren() {
         if ((this.blackChildren.size() > 1) && (this.blackChildren.size() < this.getChildCount())) {
             PQRNode b = new PQRNode(PQRType.P);
             b.visit();
@@ -238,7 +238,7 @@ public class PQRNode extends Node {
         }
     }
 
-    public PQRNode transformPIntoQ(PQRNode r) {
+    PQRNode transformPIntoQ(PQRNode r) {
         // Create gray node g of type Q child of r after v
         PQRNode g = new PQRNode(PQRType.Q);
         g.visit();
@@ -291,7 +291,7 @@ public class PQRNode extends Node {
         return g;
     }
 
-    public void moveAwayFromLCA(PQRNode v) {
+    void moveAwayFromLCA(PQRNode v) {
         if (v.getFirstChild().getColor().ordinal() < v.getLastChild().getColor().ordinal()) {
             v.reverse();
         }
@@ -332,7 +332,7 @@ public class PQRNode extends Node {
         return this.lastChild;
     }
 
-    public void mergeIntoLCA() {
+    void mergeIntoLCA() {
         PQRNode r = this.getParent();
 
         // Union
@@ -425,7 +425,7 @@ public class PQRNode extends Node {
         this.destroy();
     }
 
-    public void mergePNode() {
+    void mergePNode() {
         PQRNode r = this.getParent();
 
         // Determine darkest direction
@@ -485,7 +485,7 @@ public class PQRNode extends Node {
      * Operations to adjust the LCA * after repairing all gray children. *
 	 *************************************
      */
-    public void adjust() {
+    void adjust() {
         switch (this.type) {
             case P:
                 this.joinBlackChildren();
@@ -517,7 +517,7 @@ public class PQRNode extends Node {
     }
 
     @Override
-    public void cleanUp() {
+    void cleanUp() {
         super.cleanUp();
 
         this.grayChildren.clear();
@@ -590,7 +590,7 @@ public class PQRNode extends Node {
     }
 
     @Override
-    public boolean areAllChildrenBlack() {
+    boolean areAllChildrenBlack() {
         return (this.blackChildren.size() == this.getChildCount());
     }
 }
