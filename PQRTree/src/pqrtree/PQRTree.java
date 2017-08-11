@@ -34,6 +34,11 @@ public class PQRTree {
         this.visitedNodes = new LinkedList<>();
     }
 
+    /**
+     * Adds one constraint set to the tree, updating its structure as necessary.
+     * 
+     * @param c An array of integers that must be consecutive.
+     */
     public void reduce(int[] c) {
         if (c.length < 2) {
             return;
@@ -158,6 +163,24 @@ public class PQRTree {
         }
     }
 
+    /**
+     * Returns a string representation of the PQR tree. It uses a variant of
+     * the nested parenthesis method of representing trees in text, in which
+     * the type of the node is denoted by the type of brackets used: 
+     * 
+     * <ul>
+     * <li>P-nodes are represented by parenthesis ()
+     * <li>Q-nodes are represented by square brackets []
+     * <li>R-nodes are represented by curly braces {}
+     * </ul>
+     * 
+     * Examples:
+     * 
+     * A universal tree with 5 leaves is represented by the string
+     * "(0 1 2 3 4)".
+     * 
+     * @return The string representation of the tree.
+     */
     @Override
     public String toString() {
         return root.toString();

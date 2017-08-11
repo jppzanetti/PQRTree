@@ -30,10 +30,20 @@ class PQRNode extends Node {
         this.blackChildren = new LinkedList<>();
     }
 
+    /**
+     * Returns the type of the node.
+     * 
+     * @return The type of the node.
+     */
     PQRType getType() {
         return type;
     }
 
+    /**
+     * Changes the type of the node.
+     * 
+     * @param type The new type for the node.
+     */
     void setType(PQRType type) {
         this.type = type;
     }
@@ -531,6 +541,12 @@ class PQRNode extends Node {
      **************
      */
     
+    /**
+     * Returns a string representation of the PQR subtree rooted at this node.
+     * 
+     * @return The string representation of the node.
+     * @see PQRTree.toString()
+     */
     @Override
     public String toString() {
         String s = "";

@@ -88,6 +88,13 @@ abstract class Node {
         this.rank += 1;
     }
 
+    /**
+     * Tests whether every children of the node are colored black. A leaf
+     * has no children, so it always tests true.
+     * 
+     * @return true if all the children of the node are colored black 
+     * (of if the node is a leaf), false otherwise.
+     */
     abstract boolean areAllChildrenBlack();
 
     void cleanUp() {

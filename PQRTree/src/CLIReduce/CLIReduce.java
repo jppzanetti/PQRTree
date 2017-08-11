@@ -8,7 +8,8 @@ import java.util.Scanner;
 import pqrtree.PQRTree;
 
 /**
- *
+ * A simple example of a CLI application that builds incrementally a PQR tree.
+ * 
  * @author Joao
  */
 public class CLIReduce {
