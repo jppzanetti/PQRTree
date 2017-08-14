@@ -2,10 +2,34 @@ package pqrtree;
 
 import java.util.LinkedList;
 
+/**
+ * The main class for solving the Consecutive Ones Problem (C1P). Builds and
+ * updates a PQR-tree according to the given constraint sets.
+ * <p>
+ * <b>Usage:</b>
+ * 
+ * The first step is to build a initial (universal) tree, with 
+ * PQRTree.PQRTree(n). This tree has n leaves, labeled from 0 to n - 1.
+ * 
+ * Then, constraints can be added to the tree one by one using PQRTree.reduce().
+ * 
+ * @author Joao
+ */
 public class PQRTree {
 
+    /**
+     * The root of the tree.
+     */
     private PQRNode root;
+    
+    /**
+     * An array of all the leaves.
+     */
     private Leaf[] leaf;
+    
+    /**
+     * A list to hold all nodes that are visited during the reduction process.
+     */
     private final LinkedList<PQRNode> visitedNodes;
 
     /**
@@ -50,6 +74,14 @@ public class PQRTree {
         this.uncolor(c);
     }
 
+    /**
+     * Colors the tree with regards to the new constraint.
+     * 
+     * @param c The constraint being added.
+     * @return The least common ancestor (LCA) of all the pertinent nodes.
+     *         This is the node that serves as the start for the updates to the
+     *         tree.
+     */
     private PQRNode bubble(int[] c) {
         LinkedList<Node> queue = new LinkedList<>();
         int offTheTop = 0;
@@ -105,6 +137,12 @@ public class PQRTree {
         return null;
     }
 
+    /**
+     * Updates the colored tree, eliminating all gray nodes.
+     * 
+     * @param r The LCA.
+     * @return The LCA after the repair.
+     */
     private PQRNode repairGray(PQRNode r) {
         PQRNode v = r.getGrayChild();
         PQRNode newLCA = r;
@@ -141,6 +179,11 @@ public class PQRTree {
         return newLCA;
     }
 
+    /**
+     * Resets the tree after the reduction.
+     * 
+     * @param c The constraint just added.
+     */
     private void uncolor(int[] c) {
         for (int i : c) {
             this.leaf[i].cleanUp();
