@@ -2,16 +2,42 @@ package pqrtree;
 
 abstract class Node {
 
+    /**
+     * Stores the color of the node when it is defined.
+     */
     private Color color;
 
+    /**
+     * The parent of the node. It is only set if the parent is a P-node or
+     * if this node is the representative node among all its siblings in
+     * the union-find structure.
+     */
     private PQRNode parent;
+    /**
+     * If this is a non-representative child of a Q/R-node, 
+     * points to a sibling node above it in the union-find tree.
+     * Otherwise, points to itself.
+     */
     private Node representant;
+    /**
+     * Rank of the node in the union-find tree. It is zero if the node is not
+     * part of a union-find structure.
+     */
     private int rank;
 
     protected Node sibling[];
 
+    /**
+     * Marks whether the node has been visited during the reduction.
+     */
     private boolean visited;
+    /**
+     * The number of pertinent children of this.
+     */
     private int pertinentChildCount;
+    /**
+     * the number of pertinent leaves in the subtree rooted by this.
+     */
     private int pertinentLeafCount;
 
     Node() {
