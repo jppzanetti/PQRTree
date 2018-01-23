@@ -397,61 +397,65 @@ class PQRNode extends Node {
         }
 
         // Merge the lists
-        Node firstChild = this.getFirstChild();
-        Node lastChild = this.getLastChild();
-        if (firstChild.getColor().ordinal() < lastChild.getColor().ordinal()) {
-            if (firstChild.sibling[0] == null) {
-                firstChild.sibling[0] = outLighter;
+        Node leftChild = this.getFirstChild();
+        Node rightChild = this.getLastChild();
+        if (leftChild.getColor().ordinal() < rightChild.getColor().ordinal()) {
+            if (leftChild.sibling[0] == null) {
+                leftChild.sibling[0] = outLighter;
             } else {
-                firstChild.sibling[1] = outLighter;
+                leftChild.sibling[1] = outLighter;
             }
 
             if (outLighter != null) {
                 if (outLighter.sibling[0] == this) {
-                    outLighter.sibling[0] = firstChild;
+                    outLighter.sibling[0] = leftChild;
                 } else {
-                    outLighter.sibling[1] = firstChild;
+                    outLighter.sibling[1] = leftChild;
                 }
+            } else {
+                r.firstChild = leftChild;
             }
 
-            if (lastChild.sibling[0] == null) {
-                lastChild.sibling[0] = outDarker;
+            if (rightChild.sibling[0] == null) {
+                rightChild.sibling[0] = outDarker;
             } else {
-                lastChild.sibling[1] = outDarker;
+                rightChild.sibling[1] = outDarker;
             }
 
             // outDarker should never be null
             if (outDarker.sibling[0] == this) {
-                outDarker.sibling[0] = lastChild;
+                outDarker.sibling[0] = rightChild;
             } else {
-                outDarker.sibling[1] = lastChild;
+                outDarker.sibling[1] = rightChild;
             }
         } else {
-            if (lastChild.sibling[0] == null) {
-                lastChild.sibling[0] = outLighter;
+            if (rightChild.sibling[0] == null) {
+                rightChild.sibling[0] = outLighter;
             } else {
-                lastChild.sibling[1] = outLighter;
+                rightChild.sibling[1] = outLighter;
             }
 
             if (outLighter != null) {
                 if (outLighter.sibling[0] == this) {
-                    outLighter.sibling[0] = lastChild;
+                    outLighter.sibling[0] = rightChild;
                 } else {
-                    outLighter.sibling[1] = lastChild;
+                    outLighter.sibling[1] = rightChild;
                 }
+            } else {
+                r.firstChild = rightChild;
             }
 
-            if (firstChild.sibling[0] == null) {
-                firstChild.sibling[0] = outDarker;
+            if (leftChild.sibling[0] == null) {
+                leftChild.sibling[0] = outDarker;
             } else {
-                firstChild.sibling[1] = outDarker;
+                leftChild.sibling[1] = outDarker;
             }
 
             // outDarker should never be null
             if (outDarker.sibling[0] == this) {
-                outDarker.sibling[0] = firstChild;
+                outDarker.sibling[0] = leftChild;
             } else {
-                outDarker.sibling[1] = firstChild;
+                outDarker.sibling[1] = leftChild;
             }
         }
 
@@ -459,7 +463,15 @@ class PQRNode extends Node {
         if ((this.type == PQRType.R) && (r.getType() == PQRType.Q)) {
             r.setType(PQRType.R);
         }
-
+        
+        // Update LCA child count and colored children lists
+        r.childCount = r.childCount + this.childCount;
+        r.blackChildren.addAll(this.blackChildren);
+        r.grayChildren.addAll(this.grayChildren);
+        
+        // Destroy this node
+        this.sibling[0] = null;
+        this.sibling[1] = null;
         this.destroy();
     }
 
