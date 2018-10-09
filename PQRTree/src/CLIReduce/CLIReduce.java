@@ -10,6 +10,19 @@ import pqrtree.PQRTree;
 /**
  * A simple example of a CLI application that builds incrementally a PQR tree.
  * 
+ * The first line of the input should be an integer setting the number of
+ * elements to be considered. After that, each line adds a constraint to the
+ * PQR-Tree, with the elements separated by spaces. The tree is updated and
+ * 
+ * Example (input lines are preceded with a '>'):
+ * > 6
+ * (0 1 2 3 4 5)
+ * > 0 1 2
+ * (3 4 5 (0 1 2))
+ * > 2 3 4
+ * (5 [(3 4) 2 (0 1)])
+ * >
+ * 
  * @author Joao
  */
 public class CLIReduce {
