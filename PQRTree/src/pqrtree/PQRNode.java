@@ -8,18 +8,15 @@ class PQRNode extends Node {
      * The first child of the node.
      */
     private Node firstChild;
-    
     /**
      * The last child of the node.
      */
     private Node lastChild;
-    
     /**
      * The child that is the representant of the union-find structure of 
-     * this node's children. It is only set is this node has type Q or R.
+     * this node's children. It is only set is this node has type Q ou R.
      */
     private Node representativeChild;
-    
     /**
      * Number of children of the node.
      */
@@ -29,7 +26,6 @@ class PQRNode extends Node {
      * The type of the node --- P, Q or R.
      */
     private PQRType type;
-    
     /**
      * Whether the node has been deleted from the tree.
      * Nodes can be removed from the tree but still be needed for the union-find
@@ -42,7 +38,6 @@ class PQRNode extends Node {
      * A list that stores the gray children of the node.
      */
     private final LinkedList<Node> grayChildren;
-    
     /**
      * A list that stores the black children of the node.
      */

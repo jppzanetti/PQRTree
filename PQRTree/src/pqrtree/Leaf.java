@@ -3,7 +3,7 @@ package pqrtree;
 class Leaf extends Node {
 
     /**
-     * A number that serves as the label of the leaf.
+     * A number that servers as the label of the leaf.
      */
     private final int value;
 
