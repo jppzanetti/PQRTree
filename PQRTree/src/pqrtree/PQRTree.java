@@ -61,7 +61,8 @@ public class PQRTree {
     /**
      * Adds one constraint set to the tree, updating its structure as necessary.
      * 
-     * @param c An array of integers that must be consecutive.
+     * @param c An array of integers, corresponding to the elements that
+     * must be consecutive.
      */
     public void reduce(int[] c) {
         if (c.length < 2) {
