@@ -25,6 +25,13 @@ abstract class Node {
      */
     private int rank;
 
+    /**
+     * Holds the two immediate siblings of this node. This forms a symmetric 
+     * list. No assumption at all can be made from siblings. The only way of
+     * knowing which is "previous" and which is "next" is while traversing the
+     * list. "Previous" is the one the traversal came from, "next" is the
+     * opposite.
+     */
     protected Node sibling[];
 
     /**
@@ -60,6 +67,12 @@ abstract class Node {
         return color;
     }
 
+    /**
+     * "find" as in "union-find". Finds the representant of this node in the
+     * union-find structure.
+     * 
+     * @return The representative sibling of this node.
+     */
     private Node find() {
         if (this.representant != this) {
             this.representant = this.representant.find();

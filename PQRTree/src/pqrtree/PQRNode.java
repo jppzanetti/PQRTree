@@ -14,7 +14,7 @@ class PQRNode extends Node {
     private Node lastChild;
     /**
      * The child that is the representant of the union-find structure of 
-     * this node's children. It is only set is this node has type Q ou R.
+     * this node's children. It is only set if this node has type Q or R.
      */
     private Node representativeChild;
     /**
@@ -104,16 +104,32 @@ class PQRNode extends Node {
         return (PQRNode) this.grayChildren.poll();
     }
 
+    /**
+     * Add a node as a child of this node, without caring about its position.
+     * Use it when this node has type P or R. Assumes v was already completely 
+     * removed from any other parent node.
+     * 
+     * @param v The node to be added as a child.
+     */
     void insertChild(Node v) {
         this.insertEnd(v);
     }
 
+    /**
+     * Add a node as the first child of this node. Use it when this node is a 
+     * Q-node. Assumes v was already completely removed from any other parent
+     * node.
+     * 
+     * @param v The node to be added as a child.
+     */
     void insertBeginning(Node v) {
         v.setParent(this);
         v.sibling[1] = this.firstChild;
         this.childCount++;
 
+        // If this had at least a child already
         if (this.firstChild != null) {
+            // Attach v to the former first child where the sibling list ended
             if (this.firstChild.sibling[0] == null) {
                 this.firstChild.sibling[0] = v;
             } else {
@@ -121,6 +137,7 @@ class PQRNode extends Node {
             }
         }
 
+        // If v is the only child, it is also the last
         if (this.getChildCount() == 1) {
             this.lastChild = v;
             if (this.getType() != PQRType.P) {
@@ -138,12 +155,23 @@ class PQRNode extends Node {
         }
     }
 
+    /**
+     * Add a node as the last child of this node. Use it when this node is a 
+     * Q-node Assumes v was already completely removed from any other parent 
+     * node.
+     * 
+     * @param v The node to be added as a child.
+     * 
+     * @see PQRNode#insertBeginning(pqrtree.Node) 
+     */
     void insertEnd(Node v) {
         v.setParent(this);
         v.sibling[0] = this.lastChild;
         this.childCount++;
 
+        // If this had at least a child already
         if (this.lastChild != null) {
+            // Attach v to the former first child where the sibling list ended
             if (this.lastChild.sibling[0] == null) {
                 this.lastChild.sibling[0] = v;
             } else {
@@ -151,6 +179,7 @@ class PQRNode extends Node {
             }
         }
 
+        // If v is the only child, it is also the first
         if (this.getChildCount() == 1) {
             this.firstChild = v;
             if (this.getType() != PQRType.P) {
@@ -168,6 +197,16 @@ class PQRNode extends Node {
         }
     }
 
+    /**
+     * Insert node v as a child of this node, between nodes i and j. Nodes i and
+     * j have to consecutive siblings.
+     * 
+     * @param v The new child.
+     * @param i Child of this node, linked to j.
+     * @param j Child of this node, linked to i.
+     * 
+     * @see PQRNode#insertBeginning(pqrtree.Node) 
+     */
     void insertBetween(Node v, Node i, Node j) {
         v.sibling[0] = i;
         v.sibling[1] = j;
@@ -206,7 +245,11 @@ class PQRNode extends Node {
         }
     }
 
-    // Doesn't remove v from colored lists
+    /**
+     * Removes v as a child of this node. Doesn't remove v from colored lists.
+     * 
+     * @param v A child of this node.
+     */
     void removeChild(Node v) {
         this.childCount--;
 
@@ -243,6 +286,10 @@ class PQRNode extends Node {
         v.sibling[1] = null;
     }
 
+    /**
+     * Remove the node from its parent and mark it as deleted. Nodes are not 
+     * actually destroyed because they might be part of a union-find tree.
+     */
     private void destroy() {
         PQRNode p = this.getParent();
         if (p != null) {
@@ -251,6 +298,9 @@ class PQRNode extends Node {
         this.deleted = true;
     }
 
+    /**
+     * Invert the order of the children of the node.
+     */
     private void reverse() {
         Node tmp = this.firstChild;
         this.firstChild = this.lastChild;
@@ -482,7 +532,8 @@ class PQRNode extends Node {
         Node lightestDir = this.sibling[0];
         Node darkestDir = this.sibling[1];
         if ((darkestDir == null)
-                || ((lightestDir != null) && (lightestDir.getColor().ordinal() > darkestDir.getColor().ordinal()))) {
+            || ((lightestDir != null) 
+                && (lightestDir.getColor().ordinal() > darkestDir.getColor().ordinal()))) {
             Node tmp = darkestDir;
             darkestDir = lightestDir;
             lightestDir = tmp;
